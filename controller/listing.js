@@ -29,6 +29,13 @@ module.exports.showListing=async (req, res) => {
     res.render("listings/show.ejs", { listing, currUser});
 }
 
+module.exports.searchListing=async(req,res)=>{
+    let {dest}=req.body;
+    let listing=await Listing.find({title:dest});
+    id=listing[0]._id;
+    res.redirect(`/listings/${id}`);
+}
+
 //create listing controller
 module.exports.createListing=async(req,res,next)=>{
     let coordinates= await geocodingClient.forwardGeocode({

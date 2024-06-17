@@ -15,6 +15,9 @@ router.route("/")
 //new route
 router.get("/new",isLogedIn,listingController.renderListing);
 
+//search route
+router.post("/search",wrapAsync(listingController.searchListing));
+
 //show route
 router.route("/:id").get( wrapAsync(listingController.showListing)).put(isLogedIn,isOwner,upload.single('listing[image]'),validateListing,wrapAsync(listingController.updateListing)).delete(isLogedIn,isOwner,wrapAsync(listingController.destroyListing));
 
