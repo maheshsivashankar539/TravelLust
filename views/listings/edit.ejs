@@ -1,7 +1,5 @@
 <% layout('./layouts/boilerplate') -%>
-<script>
-    const mapToken="<%=procss.env.MAP_TOKEN %>";
-</script>
+
 <body> 
     <form action="/listings/<%= listing._id %>?_method=PUT" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
 
@@ -72,4 +70,3 @@
     </form>
 </body>
 
-<script src="/js/map.js"></script>

@@ -17,7 +17,34 @@ const listingSchema=new Schema({
     location:String,
     price:Number,
     country:String,
+    owner:
+    {
+        type: Schema.Types.ObjectId,
+        ref:"user",
+    },
+    reviews:[
+        {
+            type:Schema.Types.ObjectId,
+            ref:"Review"
+        }
+    ],
+    geometry:{
+        type: {
+            type: String,
+            enum: ['Point'],
+            // required: true
+        },
+        coordinates: {
+            type: [Number],
+            // required: true
+        }
+    },
+});
 
+listingSchema.post("findOneAndDelete", async(listing)=>{
+    if(listing){
+        await Review.deleteMany({_id:{$in :listing.reviews}});
+    }
 });
 
 const Listing=mongoose.model("Listing",listingSchema);
