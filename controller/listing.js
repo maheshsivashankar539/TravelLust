@@ -29,6 +29,7 @@ module.exports.showListing=async (req, res) => {
     res.render("listings/show.ejs", { listing, currUser});
 }
 
+//search Listing
 module.exports.searchListing=async(req,res)=>{
     let {dest}=req.body;
     let listing=await Listing.find({title:dest});
