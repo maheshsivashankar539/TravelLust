@@ -13,8 +13,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require("express-session");
 const MongoStore=require("connect-mongo");
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
 const User = require("./models/user");
 
 const listingsRouter = require("./routes/listings");
@@ -24,7 +22,6 @@ const userRouter = require("./routes/user");
 const app = express();
 
 const DBurl=process.env.ATLASDB_URL
-
 
 const store=MongoStore.create({
     mongoUrl:DBurl,
@@ -76,29 +73,20 @@ app.use((req, res, next) => {
     next();
 });
 
-
-
-//const mongo_url = "mongodb://127.0.0.1:27017/travellust";
-
-
-mongoose.connect(DBurl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => {
+main().then(() => {
     console.log("Connected to DB");
 }).catch((err) => {
     console.log("DB Connection Error:", err);
 });
 
+async function main(){
+    mongoose.connect(DBurl)
+}
+
 // Routes
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/review", reviewsRouter);
 app.use("/", userRouter);
-
-// app.get("/", (req, res) => {
-//     res.send("working");
-// });
-
 
 
 app.all("*", (req, res, next) => {
