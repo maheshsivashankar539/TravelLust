@@ -45,7 +45,10 @@
         </div>
 </div>
         <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2" style="padding: 0 3rem 0 3rem ;">
-        <% for(let listing of listings){ %> 
+               <% listings.sort((a,b)=>a.title.localeCompare(b.title));
+        // listings=listings.filter(a=>a.country==="United States");
+        %> 
+       <% for(let listing of listings){ %> 
         <a href="/listings/<%= listing._id %>" class="listing-links">
         <div class="card col">
             <img class="card-img-top" src="<%= listing.image.url %>" alt="Card image cap" style="height: 20rem;">
